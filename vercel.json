@@ -1,7 +1,0 @@
-{
-  "functions": {
-    "sipecut/main.go": {
-      "runtime": "vercel-go@1.1.0"
-    }
-  }
-}
