@@ -1,15 +1,13 @@
 package main
 
 import (
-	"sipecut/models"
 	"fmt"
-	"log"
-
-	"golang.org/x/crypto/bcrypt"
-	"github.com/glebarez/sqlite"
-	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
-	"sipecut/models"
+    "log"
+    "sipecut/api/models" // Pastikan folder models ada di root/sipecut/models
+    "golang.org/x/crypto/bcrypt"
+    "github.com/glebarez/sqlite"
+    "gorm.io/gorm"
+    "gorm.io/gorm/logger"
 )
 
 func main() {
