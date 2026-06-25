@@ -30,8 +30,14 @@ func ConnectDatabase() {
 
 	// Choose SQLite for local development, Postgres for production
 	if dbURL == "" {
-		log.Println("DATABASE_URL not found, using SQLite local database (sipecut.db)")
-		db, err = gorm.Open(sqlite.Open("sipecut.db"), &gorm.Config{
+		dbPath := "sipecut.db"
+		if os.Getenv("VERCEL") != "" {
+			dbPath = "/tmp/sipecut.db"
+			log.Println("Running on Vercel: using writeable SQLite path (/tmp/sipecut.db)")
+		} else {
+			log.Println("DATABASE_URL not found, using SQLite local database (sipecut.db)")
+		}
+		db, err = gorm.Open(sqlite.Open(dbPath), &gorm.Config{
 			Logger: logger.Default.LogMode(logger.Info),
 		})
 		if err == nil {
