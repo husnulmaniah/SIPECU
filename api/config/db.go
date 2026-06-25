@@ -57,11 +57,8 @@ func ConnectDatabase() {
 	// Auto Migration
 	log.Println("Running database auto-migrations...")
 	err = db.AutoMigrate(
-<<<<<<< HEAD
 		&models.Role{},
 		&models.Menu{},
-=======
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 		&models.User{},
 		&models.Employee{},
 		&models.PensionRule{},
@@ -93,7 +90,6 @@ func SeedData(db *gorm.DB) {
 	// 1. Seed Rules
 	var count int64
 
-<<<<<<< HEAD
 	// Roles
 	var roleCount int64
 	db.Model(&models.Role{}).Count(&roleCount)
@@ -125,8 +121,6 @@ func SeedData(db *gorm.DB) {
 		db.Create(&menus)
 	}
 
-=======
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 	// Pension Rules
 	db.Model(&models.PensionRule{}).Count(&count)
 	if count == 0 {
@@ -181,7 +175,6 @@ func SeedData(db *gorm.DB) {
 	if count == 0 {
 		log.Println("Seeding default users (Admin & Employee sample)...")
 
-<<<<<<< HEAD
 		// Load menus
 		var allMenus []models.Menu
 		db.Find(&allMenus)
@@ -204,23 +197,12 @@ func SeedData(db *gorm.DB) {
 			RoleID:            1,
 			IsPasswordDefault: false,
 			Menus:             allMenus,
-=======
-		// Create Admin
-		adminHash, _ := bcrypt.GenerateFromPassword([]byte("admin123"), bcrypt.DefaultCost)
-		adminUser := models.User{
-			NIP:          "admin",
-			PasswordHash: string(adminHash),
-			Role:         "admin",
-			NoHP:         "081234567890",
-			Status:       "aktif",
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 		}
 		db.Create(&adminUser)
 
 		// Create Employee User
 		empHash, _ := bcrypt.GenerateFromPassword([]byte("pegawai123"), bcrypt.DefaultCost)
 		empUser := models.User{
-<<<<<<< HEAD
 			NIP:               "19900101001",
 			PasswordHash:      string(empHash),
 			Role:              "employee",
@@ -229,13 +211,6 @@ func SeedData(db *gorm.DB) {
 			RoleID:            2,
 			IsPasswordDefault: false,
 			Menus:             employeeMenus,
-=======
-			NIP:          "19900101001",
-			PasswordHash: string(empHash),
-			Role:         "employee",
-			NoHP:         "089876543210",
-			Status:       "aktif",
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 		}
 		db.Create(&empUser)
 

@@ -38,18 +38,12 @@ func SetupRouter() *gin.Engine {
 	api := r.Group("/api")
 	{
 		// 1. Anonymous routes
-<<<<<<< HEAD
 		api.POST("/login", middleware.RateLimiter(), controllers.Login)
 		api.POST("/refresh-token", controllers.RefreshToken)
 
 		auth := api.Group("/auth")
 		{
 			auth.POST("/login", middleware.RateLimiter(), controllers.Login)
-=======
-		auth := api.Group("/auth")
-		{
-			auth.POST("/login", controllers.Login)
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 			auth.POST("/refresh", controllers.RefreshToken)
 		}
 
@@ -59,11 +53,8 @@ func SetupRouter() *gin.Engine {
 		{
 			authorized.GET("/dashboard/summary", controllers.GetDashboardSummary)
 			authorized.PUT("/auth/change-password", controllers.ChangePassword)
-<<<<<<< HEAD
 			authorized.POST("/change-password", controllers.ChangePassword)
 			authorized.GET("/me", controllers.GetMe)
-=======
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 
 			// Employees
 			authorized.GET("/employees", controllers.GetEmployees)
@@ -75,7 +66,7 @@ func SetupRouter() *gin.Engine {
 			authorized.POST("/data-change-requests", controllers.SubmitDataChangeRequest)
 			authorized.GET("/data-change-requests", controllers.GetDataChangeRequests)
 
-			// Leave Requests — admin can also submit on behalf of employee
+			// Leave Requests â€” admin can also submit on behalf of employee
 			authorized.POST("/leave-requests", controllers.SubmitLeaveRequest)
 			authorized.GET("/leave-requests", controllers.GetLeaveRequests)
 
@@ -83,7 +74,7 @@ func SetupRouter() *gin.Engine {
 			authorized.POST("/berita-acara", controllers.SubmitBeritaAcara)
 			authorized.GET("/berita-acara", controllers.GetBeritaAcara)
 
-			// Master reference data — read accessible to all authenticated users (for autocomplete)
+			// Master reference data â€” read accessible to all authenticated users (for autocomplete)
 			authorized.GET("/master/jabatan", controllers.GetMasterJabatan)
 			authorized.GET("/master/tempat-tugas", controllers.GetMasterTempatTugas)
 		}
@@ -94,14 +85,11 @@ func SetupRouter() *gin.Engine {
 		admin.Use(middleware.RoleMiddleware("admin"))
 		{
 			admin.POST("/auth/reset-password", controllers.ResetPassword)
-<<<<<<< HEAD
 			admin.GET("/admin/pegawai", controllers.AdminGetPegawai)
 			admin.POST("/admin/pegawai", controllers.AdminCreatePegawai)
 			admin.PUT("/admin/pegawai/:nip/akses", controllers.AdminUpdateAkses)
 			admin.PUT("/admin/pegawai/:nip/reset-password", controllers.AdminResetPassword)
 			admin.GET("/admin/menu", controllers.AdminGetMenu)
-=======
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 
 			// Retired Employees
 			admin.GET("/employees/retired", controllers.GetRetiredEmployees)

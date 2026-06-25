@@ -22,7 +22,6 @@ func init() {
 }
 
 // GenerateToken creates an access token and a refresh token
-<<<<<<< HEAD
 func GenerateToken(nip string, role string, menus []string) (string, string, error) {
 	// 1. Access Token (expires in 24 hours for easier local testing/use)
 	accessTokenClaims := jwt.MapClaims{
@@ -31,15 +30,6 @@ func GenerateToken(nip string, role string, menus []string) (string, string, err
 		"daftar_menu_akses": menus,
 		"exp":               time.Now().Add(24 * time.Hour).Unix(),
 		"iat":               time.Now().Unix(),
-=======
-func GenerateToken(nip string, role string) (string, string, error) {
-	// 1. Access Token (expires in 24 hours for easier local testing/use)
-	accessTokenClaims := jwt.MapClaims{
-		"nip":  nip,
-		"role": role,
-		"exp":  time.Now().Add(24 * time.Hour).Unix(),
-		"iat":  time.Now().Unix(),
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 	}
 	accessToken := jwt.NewWithClaims(jwt.SigningMethodHS256, accessTokenClaims)
 	accessStr, err := accessToken.SignedString(jwtSecretKey)
@@ -49,16 +39,10 @@ func GenerateToken(nip string, role string) (string, string, error) {
 
 	// 2. Refresh Token (expires in 7 days)
 	refreshTokenClaims := jwt.MapClaims{
-<<<<<<< HEAD
 		"nip":  nip,
 		"role": role,
 		"exp":  time.Now().Add(7 * 24 * time.Hour).Unix(),
 		"iat":  time.Now().Unix(),
-=======
-		"nip": nip,
-		"exp": time.Now().Add(7 * 24 * time.Hour).Unix(),
-		"iat": time.Now().Unix(),
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 	}
 	refreshToken := jwt.NewWithClaims(jwt.SigningMethodHS256, refreshTokenClaims)
 	refreshStr, err := refreshToken.SignedString(jwtSecretKey)
@@ -123,7 +107,6 @@ func AuthMiddleware() gin.HandlerFunc {
 		// Set variables to Gin Context
 		c.Set("nip", claims["nip"].(string))
 		c.Set("role", claims["role"].(string))
-<<<<<<< HEAD
 
 		// Parse menus
 		if menusVal, ok := claims["daftar_menu_akses"]; ok {
@@ -138,8 +121,6 @@ func AuthMiddleware() gin.HandlerFunc {
 			}
 		}
 
-=======
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 		c.Next()
 	}
 }
@@ -172,7 +153,6 @@ func RoleMiddleware(allowedRoles ...string) gin.HandlerFunc {
 		c.Next()
 	}
 }
-<<<<<<< HEAD
 
 // MenuAccessCheck memvalidasi hak akses modul menu pegawai secara real-time
 func MenuAccessCheck(requiredMenuCode string) gin.HandlerFunc {
@@ -207,5 +187,3 @@ func MenuAccessCheck(requiredMenuCode string) gin.HandlerFunc {
 		c.Next()
 	}
 }
-=======
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4

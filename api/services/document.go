@@ -6,19 +6,13 @@ import (
 	"fmt"
 	"io"
 	"math"
-<<<<<<< HEAD
 	"os"
-=======
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 	"strings"
 	"time"
 
 	"github.com/jung-kurt/gofpdf"
 
-<<<<<<< HEAD
 	"sipecut/config"
-=======
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 	"sipecut/models"
 )
 
@@ -32,7 +26,6 @@ func formatTanggalID(t time.Time) string {
 	return fmt.Sprintf("%02d %s %d", t.Day(), indonesianMonths[int(t.Month())], t.Year())
 }
 
-<<<<<<< HEAD
 func formatTanggalRangeID(start, end time.Time) string {
 	if start.Year() == end.Year() {
 		if start.Month() == end.Month() {
@@ -106,8 +99,6 @@ func buildDocxSignatureXML(now time.Time) string {
     </w:tbl>`
 }
 
-=======
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 func hitungMasaKerja(tanggalLahir time.Time, now time.Time) (int, int) {
 	startYear := tanggalLahir.Year() + 23
 	start := time.Date(startYear, tanggalLahir.Month(), tanggalLahir.Day(), 0, 0, 0, 0, time.UTC)
@@ -119,9 +110,9 @@ func hitungMasaKerja(tanggalLahir time.Time, now time.Time) (int, int) {
 	return totalMonths / 12, totalMonths % 12
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // FORMULIR PERMINTAAN DAN PEMBERIAN CUTI  (PDF only, Times New Roman)
-// ─────────────────────────────────────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 func GenerateFormulirCutiPdf(req *models.LeaveRequest) ([]byte, error) {
 	pdf := gofpdf.New("P", "mm", "A4", "")
@@ -131,8 +122,7 @@ func GenerateFormulirCutiPdf(req *models.LeaveRequest) ([]byte, error) {
 	now := time.Now()
 	pageW := 180.0
 
-	// ── KOP SURAT ──────────────────────────────────────────────────────────
-<<<<<<< HEAD
+	// â”€â”€ KOP SURAT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 	logoPath := findLogoPath()
 	if _, err := os.Stat(logoPath); err == nil {
 		pdf.Image(logoPath, 16, 10, 18, 22, false, "", 0, "")
@@ -149,15 +139,6 @@ func GenerateFormulirCutiPdf(req *models.LeaveRequest) ([]byte, error) {
 	pdf.SetFont("Times", "B", 12)
 	pdf.SetX(35)
 	pdf.CellFormat(pageW - 20, 5, "KOLONODALE", "", 1, "C", false, 0, "")
-=======
-	pdf.SetFont("Times", "B", 12)
-	pdf.CellFormat(pageW, 5, "PEMERINTAH KABUPATEN MOROWALI UTARA", "", 1, "C", false, 0, "")
-	pdf.CellFormat(pageW, 5, "DINAS PENDIDIKAN DAN KEBUDAYAAN DAERAH", "", 1, "C", false, 0, "")
-	pdf.SetFont("Times", "", 9)
-	pdf.CellFormat(pageW, 4, "Alamat : Jln. Bumi Nangka Kompleks Perkantoran Kode Pos (94971)", "", 1, "C", false, 0, "")
-	pdf.SetFont("Times", "B", 12)
-	pdf.CellFormat(pageW, 5, "KOLONODALE", "", 1, "C", false, 0, "")
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 
 	pdf.SetLineWidth(0.8)
 	pdf.Line(15, pdf.GetY()+1, 195, pdf.GetY()+1)
@@ -165,7 +146,6 @@ func GenerateFormulirCutiPdf(req *models.LeaveRequest) ([]byte, error) {
 	pdf.Line(15, pdf.GetY()+3, 195, pdf.GetY()+3)
 	pdf.Ln(5)
 
-<<<<<<< HEAD
 	// Recipient Block
 	pdf.SetFont("Times", "", 9)
 	pdf.SetX(100)
@@ -184,22 +164,16 @@ func GenerateFormulirCutiPdf(req *models.LeaveRequest) ([]byte, error) {
 	pdf.CellFormat(80, 4, "Kolonodale", "", 1, "L", false, 0, "")
 	pdf.Ln(4)
 
-	// ── JUDUL ──────────────────────────────────────────────────────────────
+	// â”€â”€ JUDUL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 	pdf.SetFont("Times", "B", 11)
 	pdf.CellFormat(pageW, 6, "FORMULIR PERMINTAAN DAN PEMBERIAN CUTI", "", 1, "C", false, 0, "")
-=======
-	// ── JUDUL ──────────────────────────────────────────────────────────────
-	pdf.SetFont("Times", "BU", 11)
-	pdf.CellFormat(pageW, 7, "FORMULIR PERMINTAAN DAN PEMBERIAN CUTI", "", 1, "C", false, 0, "")
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 	pdf.Ln(2)
 
-	// ── SECTION I: DATA PEGAWAI ────────────────────────────────────────────
+	// â”€â”€ SECTION I: DATA PEGAWAI â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 	sectionHeader(pdf, pageW, "I", "Data Pegawai")
 
 	masaKerjaTahun, masaKerjaBulan := hitungMasaKerja(req.Employee.TanggalLahir, now)
 
-<<<<<<< HEAD
 	pdf.SetFont("Times", "", 9)
 	// Nama & NIP
 	pdf.CellFormat(8, 5, "", "LR", 0, "C", false, 0, "")
@@ -227,7 +201,7 @@ func GenerateFormulirCutiPdf(req *models.LeaveRequest) ([]byte, error) {
 	pdf.CellFormat(3, 5, ":", "B", 0, "L", false, 0, "")
 	pdf.CellFormat(154, 5, req.Employee.TempatTugas, "RB", 1, "L", false, 0, "")
 
-	// ── SECTION II: JENIS CUTI ─────────────────────────────────────────────
+	// â”€â”€ SECTION II: JENIS CUTI â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 	sectionHeader(pdf, pageW, "II", "Jenis Cuti yang diambil")
 
 	check1, check2, check3, check4, check5, check6 := "", "", "", "", "", ""
@@ -269,27 +243,8 @@ func GenerateFormulirCutiPdf(req *models.LeaveRequest) ([]byte, error) {
 	pdf.CellFormat(5, 5, "6", "1", 0, "C", false, 0, "")
 	pdf.CellFormat(71, 5, "Cuti di Luar Tanggungan Negara", "1", 0, "L", false, 0, "")
 	pdf.CellFormat(10, 5, check6, "1", 1, "C", false, 0, "")
-=======
-	drawLabelValue(pdf, pageW, "Nama", req.Employee.Nama, "NIP", req.Employee.NIP)
-	drawLabelValue(pdf, pageW, "Jabatan", req.Employee.Jabatan, "Masa Kerja",
-		fmt.Sprintf("%d Tahun %d Bulan", masaKerjaTahun, masaKerjaBulan))
-	drawLabelFull(pdf, pageW, "Unit Kerja", req.Employee.TempatTugas)
 
-	// ── SECTION II: JENIS CUTI ─────────────────────────────────────────────
-	sectionHeader(pdf, pageW, "II", "Jenis Cuti yang diminta")
-
-	jenisOpts := []string{
-		"Cuti Tahunan",
-		"Cuti Besar",
-		"Cuti Sakit",
-		"Cuti Melahirkan",
-		"Cuti Karena Alasan Penting",
-		"Cuti di Luar Tanggungan Negara",
-	}
-	drawCheckboxRow(pdf, pageW, jenisOpts, req.JenisCuti)
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
-
-	// ── SECTION III: ALASAN CUTI ───────────────────────────────────────────
+	// â”€â”€ SECTION III: ALASAN CUTI â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 	sectionHeader(pdf, pageW, "III", "Alasan Cuti")
 
 	alasan := req.JenisCuti
@@ -306,20 +261,14 @@ func GenerateFormulirCutiPdf(req *models.LeaveRequest) ([]byte, error) {
 		alasan = "Alasan Penting / Mendesak"
 	}
 
-<<<<<<< HEAD
 	pdf.CellFormat(8, 7, "", "LRB", 0, "C", false, 0, "")
 	pdf.SetFont("Times", "", 9)
 	pdf.CellFormat(172, 7, alasan, "RB", 1, "L", false, 0, "")
-=======
-	pdf.SetFont("Times", "", 9)
-	pdf.CellFormat(pageW, 7, alasan, "1", 1, "L", false, 0, "")
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 
-	// ── SECTION IV: LAMA CUTI ──────────────────────────────────────────────
+	// â”€â”€ SECTION IV: LAMA CUTI â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 	sectionHeader(pdf, pageW, "IV", "Lama Cuti")
 
 	lamaCuti := int(math.Round(req.TanggalSelesai.Sub(req.TanggalMulai).Hours()/24)) + 1
-<<<<<<< HEAD
 	tanggalRange := formatTanggalRangeID(req.TanggalMulai, req.TanggalSelesai)
 
 	pdf.CellFormat(8, 5, "", "LRB", 0, "C", false, 0, "")
@@ -327,22 +276,10 @@ func GenerateFormulirCutiPdf(req *models.LeaveRequest) ([]byte, error) {
 	pdf.CellFormat(30, 5, fmt.Sprintf("%d Hari", lamaCuti), "1", 0, "C", false, 0, "")
 	pdf.CellFormat(30, 5, "Mulai Tanggal", "1", 0, "L", false, 0, "")
 	pdf.CellFormat(92, 5, tanggalRange, "1", 1, "C", false, 0, "")
-=======
-	tanggalRange := fmt.Sprintf("%s s/d %s", formatTanggalID(req.TanggalMulai), formatTanggalID(req.TanggalSelesai))
 
-	pdf.SetFont("Times", "", 9)
-	col1W := pageW * 0.4
-	col2W := pageW * 0.2
-	col3W := pageW * 0.4
-	pdf.CellFormat(col1W, 7, fmt.Sprintf("%d Hari", lamaCuti), "1", 0, "C", false, 0, "")
-	pdf.CellFormat(col2W, 7, "Tanggal", "1", 0, "C", false, 0, "")
-	pdf.CellFormat(col3W, 7, tanggalRange, "1", 1, "C", false, 0, "")
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
-
-	// ── SECTION V: CATATAN CUTI ────────────────────────────────────────────
+	// â”€â”€ SECTION V: CATATAN CUTI â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 	sectionHeader(pdf, pageW, "V", "Catatan Cuti")
 
-<<<<<<< HEAD
 	// Row 1
 	pdf.CellFormat(8, 5, "", "LR", 0, "C", false, 0, "")
 	pdf.CellFormat(5, 5, "1", "1", 0, "C", false, 0, "")
@@ -400,37 +337,10 @@ func GenerateFormulirCutiPdf(req *models.LeaveRequest) ([]byte, error) {
 	pdf.CellFormat(5, 5, "6", "1", 0, "C", false, 0, "")
 	pdf.CellFormat(66, 5, "Cuti di Luar Tanggungan Negara", "1", 0, "L", false, 0, "")
 	pdf.CellFormat(15, 5, "", "1", 1, "C", false, 0, "")
-=======
-	pdf.SetFont("Times", "B", 8)
-	hCol := []float64{pageW * 0.18, pageW * 0.08, pageW * 0.22, pageW * 0.04, pageW * 0.48}
-	pdf.CellFormat(hCol[0], 5, "Cuti Tahunan", "1", 0, "C", false, 0, "")
-	pdf.CellFormat(hCol[1], 5, "Sisa", "1", 0, "C", false, 0, "")
-	pdf.CellFormat(hCol[2], 5, "Keterangan", "1", 0, "C", false, 0, "")
-	pdf.CellFormat(hCol[3], 5, "", "1", 0, "C", false, 0, "")
-	pdf.CellFormat(hCol[4], 5, "Jenis Cuti Lainnya", "1", 1, "C", false, 0, "")
 
-	rightTypes := []string{"Cuti Tahunan", "Cuti Sakit", "Cuti Karena Alasan Penting", "Cuti Besar", "Cuti Melahirkan", "Cuti di Luar Tanggungan Negara"}
-	rightColW := hCol[4] / 2
-	years := []string{"N", "N-1", "N-2", "N-3"}
-	pdf.SetFont("Times", "", 8)
-	for i, yr := range years {
-		pdf.CellFormat(hCol[0], 5, yr, "1", 0, "C", false, 0, "")
-		pdf.CellFormat(hCol[1], 5, "", "1", 0, "C", false, 0, "")
-		pdf.CellFormat(hCol[2], 5, "", "1", 0, "C", false, 0, "")
-		pdf.CellFormat(hCol[3], 5, "", "1", 0, "C", false, 0, "")
-		if i < len(rightTypes) {
-			pdf.CellFormat(rightColW, 5, rightTypes[i], "1", 0, "L", false, 0, "")
-			pdf.CellFormat(rightColW, 5, "", "1", 1, "L", false, 0, "")
-		} else {
-			pdf.CellFormat(hCol[4], 5, "", "1", 1, "C", false, 0, "")
-		}
-	}
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
-
-	// ── SECTION VI: ALAMAT ─────────────────────────────────────────────────
+	// â”€â”€ SECTION VI: ALAMAT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 	sectionHeader(pdf, pageW, "VI", "Alamat Selama Menjalankan Cuti")
 
-<<<<<<< HEAD
 	phoneNo := "....................."
 	db := config.GetDB()
 	if db != nil {
@@ -466,7 +376,7 @@ func GenerateFormulirCutiPdf(req *models.LeaveRequest) ([]byte, error) {
 	pdf.SetFont("Times", "", 9)
 	pdf.CellFormat(86, 5, "NIP: "+req.Employee.NIP, "1", 1, "C", false, 0, "")
 
-	// ── SECTION VII: PERTIMBANGAN ATASAN ──────────────────────────────────
+	// â”€â”€ SECTION VII: PERTIMBANGAN ATASAN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 	pdf.SetXY(15, startY+32)
 	sectionHeader(pdf, pageW, "VII", "Pertimbangan Atasan Langsung")
 
@@ -499,54 +409,6 @@ func GenerateFormulirCutiPdf(req *models.LeaveRequest) ([]byte, error) {
 	pdf.SetX(109)
 	pdf.SetFont("Times", "", 9)
 	pdf.CellFormat(86, 5, "NIP: "+kdNip, "1", 1, "C", false, 0, "")
-=======
-	pdf.SetFont("Times", "", 9)
-	leftW := pageW * 0.55
-	rightW := pageW * 0.45
-
-	pdf.CellFormat(leftW, 6, "Alamat : ................................", "1", 0, "L", false, 0, "")
-	pdf.CellFormat(rightW, 6, fmt.Sprintf("Kolonodale, %s", formatTanggalID(now)), "1", 1, "L", false, 0, "")
-
-	pdf.CellFormat(leftW, 6, "", "1", 0, "L", false, 0, "")
-	pdf.CellFormat(rightW, 6, "Hormat Saya,", "1", 1, "L", false, 0, "")
-
-	pdf.CellFormat(leftW, 6, fmt.Sprintf("Telp : %s", "....................."), "1", 0, "L", false, 0, "")
-	pdf.CellFormat(rightW, 18, "", "1", 1, "L", false, 0, "")
-
-	pdf.CellFormat(leftW, 6, "", "LRB", 0, "L", false, 0, "")
-	pdf.SetFont("Times", "B", 9)
-	pdf.CellFormat(rightW, 6, req.Employee.Nama, "1", 1, "C", false, 0, "")
-
-	pdf.SetFont("Times", "", 8)
-	pdf.CellFormat(leftW, 5, "", "LRB", 0, "L", false, 0, "")
-	pdf.CellFormat(rightW, 5, fmt.Sprintf("NIP %s", req.Employee.NIP), "1", 1, "C", false, 0, "")
-
-	// ── SECTION VII: PERTIMBANGAN ATASAN ──────────────────────────────────
-	sectionHeader(pdf, pageW, "VII", "Pertimbangan Atasan Langsung")
-
-	pdf.SetFont("Times", "", 8)
-	colW4 := pageW / 4
-	opts := []string{"Disetujui", "Perubahan", "Ditangguhkan", "Tidak Disetujui"}
-	for _, o := range opts {
-		pdf.CellFormat(colW4, 5, o, "LTR", 0, "C", false, 0, "")
-	}
-	pdf.Ln(5)
-	for range opts {
-		pdf.CellFormat(colW4, 12, "", "LBR", 0, "C", false, 0, "")
-	}
-	pdf.Ln(12)
-
-	pdf.SetFont("Times", "", 9)
-	pdf.CellFormat(pageW*0.6, 5, "", "", 0, "L", false, 0, "")
-	pdf.CellFormat(pageW*0.4, 5, "Kepala Dinas", "", 1, "C", false, 0, "")
-	pdf.Ln(16)
-	pdf.SetFont("Times", "BU", 10)
-	pdf.CellFormat(pageW*0.6, 5, "", "", 0, "L", false, 0, "")
-	pdf.CellFormat(pageW*0.4, 5, "MOH. RIDWAN DM, S.Ag", "", 1, "C", false, 0, "")
-	pdf.SetFont("Times", "", 9)
-	pdf.CellFormat(pageW*0.6, 4, "", "", 0, "L", false, 0, "")
-	pdf.CellFormat(pageW*0.4, 4, "NIP. 19740111 199803 1 004", "", 1, "C", false, 0, "")
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 
 	var buf bytes.Buffer
 	if err := pdf.Output(&buf); err != nil {
@@ -555,9 +417,9 @@ func GenerateFormulirCutiPdf(req *models.LeaveRequest) ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // SURAT REKOMENDASI IZIN CUTI  (Word + PDF, Times New Roman, Justify body)
-// ─────────────────────────────────────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 func GenerateRekomendasiCutiPdf(req *models.LeaveRequest) ([]byte, error) {
 	pdf := gofpdf.New("P", "mm", "A4", "")
@@ -567,8 +429,7 @@ func GenerateRekomendasiCutiPdf(req *models.LeaveRequest) ([]byte, error) {
 	now := time.Now()
 	pageW := 160.0
 
-	// ── KOP SURAT ──────────────────────────────────────────────────────────
-<<<<<<< HEAD
+	// â”€â”€ KOP SURAT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 	logoPath := findLogoPath()
 	if _, err := os.Stat(logoPath); err == nil {
 		pdf.Image(logoPath, 25, 12, 18, 22, false, "", 0, "")
@@ -585,15 +446,6 @@ func GenerateRekomendasiCutiPdf(req *models.LeaveRequest) ([]byte, error) {
 	pdf.SetFont("Times", "B", 12)
 	pdf.SetX(45)
 	pdf.CellFormat(pageW-20, 5, "KOLONODALE", "", 1, "C", false, 0, "")
-=======
-	pdf.SetFont("Times", "B", 13)
-	pdf.CellFormat(pageW, 6, "PEMERINTAH KABUPATEN MOROWALI UTARA", "", 1, "C", false, 0, "")
-	pdf.CellFormat(pageW, 6, "DINAS PENDIDIKAN DAN KEBUDAYAAN DAERAH", "", 1, "C", false, 0, "")
-	pdf.SetFont("Times", "", 10)
-	pdf.CellFormat(pageW, 5, "Alamat : Jln. Bumi Nangka Kompleks Perkantoran Kode Pos (94971)", "", 1, "C", false, 0, "")
-	pdf.SetFont("Times", "B", 12)
-	pdf.CellFormat(pageW, 5, "KOLONODALE", "", 1, "C", false, 0, "")
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 
 	pdf.SetLineWidth(0.8)
 	pdf.Line(25, pdf.GetY()+1, 185, pdf.GetY()+1)
@@ -601,25 +453,21 @@ func GenerateRekomendasiCutiPdf(req *models.LeaveRequest) ([]byte, error) {
 	pdf.Line(25, pdf.GetY()+3, 185, pdf.GetY()+3)
 	pdf.Ln(8)
 
-	// ── NOMOR / LAMPIRAN / PERIHAL ─────────────────────────────────────────
+	// â”€â”€ NOMOR / LAMPIRAN / PERIHAL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 	pdf.SetFont("Times", "", 12)
 	labelW := 25.0
 	colonW := 5.0
 	valW := pageW - labelW - colonW
 
 	romawi := toRomawi(int(now.Month()))
-<<<<<<< HEAD
 	nomorSurat := fmt.Sprintf("800.1.11.4/     /Disdikbud/%s/%d", romawi, now.Year())
-=======
-	nomorSurat := fmt.Sprintf("800.1.11.4/     /Disdikbud /%s/%d", romawi, now.Year())
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 
 	drawSuratRow(pdf, labelW, colonW, valW, "Nomor", nomorSurat)
 	drawSuratRow(pdf, labelW, colonW, valW, "Lampiran", "Satu Berkas")
 	drawSuratRow(pdf, labelW, colonW, valW, "Perihal", "Rekomendasi Izin Cuti")
 	pdf.Ln(8)
 
-	// ── TUJUAN ─────────────────────────────────────────────────────────────
+	// â”€â”€ TUJUAN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 	pdf.SetFont("Times", "", 12)
 	pdf.CellFormat(pageW, 6, "Yth. Bupati Morowali Utara", "", 1, "L", false, 0, "")
 	pdf.CellFormat(pageW, 6, "Cq Kepala Badan Kepegawaian dan", "", 1, "L", false, 0, "")
@@ -629,24 +477,15 @@ func GenerateRekomendasiCutiPdf(req *models.LeaveRequest) ([]byte, error) {
 	pdf.CellFormat(pageW-20, 6, "Tempat", "", 1, "L", false, 0, "")
 	pdf.Ln(8)
 
-	// ── ISI SURAT (Times New Roman, Justify) ───────────────────────────────
+	// â”€â”€ ISI SURAT (Times New Roman, Justify) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 	pdf.SetFont("Times", "", 12)
 
-<<<<<<< HEAD
 	tanggalRange := formatTanggalRangeID(req.TanggalMulai, req.TanggalSelesai)
-=======
-	namaJabatan := fmt.Sprintf("%s, %s", req.Employee.Nama, req.Employee.Jabatan)
-	tanggalRange := fmt.Sprintf("%s s/d %s", formatTanggalID(req.TanggalMulai), formatTanggalID(req.TanggalSelesai))
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 	jenisCutiDisplay := normalisasiJenisCuti(req.JenisCuti)
 
 	para1 := fmt.Sprintf(
 		"Menindak lanjuti surat permohonan %s atas nama %s; Tanggal %s dengan ini kami tidak keberatan dan menyetujui permohonan tersebut kami teruskan kepada Bapak untuk ditindaklanjuti (Permohonan Terlampir).",
-<<<<<<< HEAD
 		jenisCutiDisplay, req.Employee.Nama, tanggalRange,
-=======
-		jenisCutiDisplay, namaJabatan, tanggalRange,
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 	)
 
 	// "J" = justify (rata kiri-kanan)
@@ -658,40 +497,23 @@ func GenerateRekomendasiCutiPdf(req *models.LeaveRequest) ([]byte, error) {
 		"", "J", false)
 	pdf.Ln(15)
 
-<<<<<<< HEAD
 	kdNama, kdNip := getKepalaDinasInfo()
 
-	// ── TANDA TANGAN ───────────────────────────────────────────────────────
+	// â”€â”€ TANDA TANGAN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 	sigOffsetX := 25 + pageW*0.40
 	pdf.SetX(sigOffsetX)
 	pdf.SetFont("Times", "", 12)
 	pdf.CellFormat(pageW*0.60, 6, fmt.Sprintf("Kolonodale, %s", formatTanggalID(now)), "", 1, "C", false, 0, "")
 	pdf.SetX(sigOffsetX)
 	pdf.CellFormat(pageW*0.60, 6, "Kepala Dinas,", "", 1, "C", false, 0, "")
-=======
-	// ── TANDA TANGAN ───────────────────────────────────────────────────────
-	sigOffsetX := 25 + pageW*0.55
-	pdf.SetX(sigOffsetX)
-	pdf.SetFont("Times", "", 12)
-	pdf.CellFormat(pageW*0.45, 6, fmt.Sprintf("Kolonodale, %s", formatTanggalID(now)), "", 1, "L", false, 0, "")
-	pdf.SetX(sigOffsetX)
-	pdf.CellFormat(pageW*0.45, 6, "Kepala Dinas", "", 1, "L", false, 0, "")
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 	pdf.Ln(20)
 
 	pdf.SetX(sigOffsetX)
 	pdf.SetFont("Times", "BU", 12)
-<<<<<<< HEAD
 	pdf.CellFormat(pageW*0.60, 6, kdNama, "", 1, "C", false, 0, "")
 	pdf.SetX(sigOffsetX)
 	pdf.SetFont("Times", "", 11)
 	pdf.CellFormat(pageW*0.60, 5, "NIP: "+kdNip, "", 1, "C", false, 0, "")
-=======
-	pdf.CellFormat(pageW*0.45, 6, "MOH. RIDWAN DM, S.Ag", "", 1, "L", false, 0, "")
-	pdf.SetX(sigOffsetX)
-	pdf.SetFont("Times", "", 11)
-	pdf.CellFormat(pageW*0.45, 5, "NIP: 19740111 199803 1 004", "", 1, "L", false, 0, "")
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 
 	var buf bytes.Buffer
 	if err := pdf.Output(&buf); err != nil {
@@ -700,9 +522,9 @@ func GenerateRekomendasiCutiPdf(req *models.LeaveRequest) ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// DOCX — Surat Rekomendasi (Times New Roman, Justify body)
-// ─────────────────────────────────────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// DOCX â€” Surat Rekomendasi (Times New Roman, Justify body)
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 func GenerateLeaveDocx(req *models.LeaveRequest) ([]byte, error) {
 	return buildDocx(buildRekomendasiXML(req))
@@ -723,7 +545,6 @@ func buildDocx(xmlBody string) ([]byte, error) {
 	var buf bytes.Buffer
 	zipWriter := zip.NewWriter(&buf)
 
-<<<<<<< HEAD
 	var logoBytes []byte
 	logoPath := findLogoPath()
 	var readErr error
@@ -755,15 +576,6 @@ func buildDocx(xmlBody string) ([]byte, error) {
 
 	contentTypes, _ := zipWriter.Create("[Content_Types].xml")
 	_, _ = io.WriteString(contentTypes, contentTypesXML)
-=======
-	contentTypes, _ := zipWriter.Create("[Content_Types].xml")
-	_, _ = io.WriteString(contentTypes, `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
-  <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
-  <Default Extension="xml" ContentType="application/xml"/>
-  <Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>
-</Types>`)
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 
 	rels, _ := zipWriter.Create("_rels/.rels")
 	_, _ = io.WriteString(rels, `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -771,7 +583,6 @@ func buildDocx(xmlBody string) ([]byte, error) {
   <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>
 </Relationships>`)
 
-<<<<<<< HEAD
 	docRelsXML := `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">`
 	if len(logoBytes) > 0 {
@@ -786,11 +597,6 @@ func buildDocx(xmlBody string) ([]byte, error) {
 		mediaFile, _ := zipWriter.Create("word/media/image1.png")
 		_, _ = mediaFile.Write(logoBytes)
 	}
-=======
-	docRels, _ := zipWriter.Create("word/_rels/document.xml.rels")
-	_, _ = io.WriteString(docRels, `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"/>`)
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 
 	documentXML, _ := zipWriter.Create("word/document.xml")
 	_, _ = io.WriteString(documentXML, xmlBody)
@@ -804,7 +610,6 @@ func buildDocx(xmlBody string) ([]byte, error) {
 func buildRekomendasiXML(req *models.LeaveRequest) string {
 	now := time.Now()
 	jenisCutiDisplay := normalisasiJenisCuti(req.JenisCuti)
-<<<<<<< HEAD
 	tanggalRange := formatTanggalRangeID(req.TanggalMulai, req.TanggalSelesai)
 	romawi := toRomawi(int(now.Month()))
 	nomorSurat := fmt.Sprintf("800.1.11.4/     /Disdikbud/%s/%d", romawi, now.Year())
@@ -812,21 +617,10 @@ func buildRekomendasiXML(req *models.LeaveRequest) string {
 	para1 := fmt.Sprintf(
 		"Menindak lanjuti surat permohonan %s atas nama %s; Tanggal %s dengan ini kami tidak keberatan dan menyetujui permohonan tersebut kami teruskan kepada Bapak untuk ditindaklanjuti (Permohonan Terlampir).",
 		jenisCutiDisplay, req.Employee.Nama, tanggalRange,
-=======
-	namaJabatan := req.Employee.Nama + ", " + req.Employee.Jabatan
-	tanggalRange := formatTanggalID(req.TanggalMulai) + " s/d " + formatTanggalID(req.TanggalSelesai)
-	romawi := toRomawi(int(now.Month()))
-	nomorSurat := fmt.Sprintf("800.1.11.4/     /Disdikbud /%s/%d", romawi, now.Year())
-
-	para1 := fmt.Sprintf(
-		"Menindak lanjuti surat permohonan %s atas nama %s; Tanggal %s dengan ini kami tidak keberatan dan menyetujui permohonan tersebut kami teruskan kepada Bapak untuk ditindaklanjuti (Permohonan Terlampir).",
-		jenisCutiDisplay, namaJabatan, tanggalRange,
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 	)
 	para2 := "Demikian Surat Permohonan Cuti ini kami teruskan kepada Bapak, atas pertimbangan Bapak kami ucapkan terima kasih."
 
 	return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<<<<<<< HEAD
 <w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"
             xmlns:wp="http://schemas.openxmlformats.org/wordprocessingdrawingml/2006/main"
             xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
@@ -961,19 +755,6 @@ func buildRekomendasiXML(req *models.LeaveRequest) string {
         </w:tc>
       </w:tr>
     </w:tbl>` + `
-=======
-<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
-  <w:body>
-    ` + wTimes("PEMERINTAH KABUPATEN MOROWALI UTARA", "center", "B", "26") + `
-    ` + wTimes("DINAS PENDIDIKAN DAN KEBUDAYAAN DAERAH", "center", "B", "26") + `
-    ` + wTimes("Alamat : Jln. Bumi Nangka Kompleks Perkantoran Kode Pos (94971)", "center", "", "20") + `
-    ` + wTimes("KOLONODALE", "center", "B", "24") + `
-    <w:p><w:pPr><w:pBdr><w:bottom w:val="double" w:sz="6" w:space="1" w:color="000000"/></w:pBdr></w:pPr></w:p>
-    <w:p/>
-    ` + wTimes("Nomor    :  "+nomorSurat, "left", "", "24") + `
-    ` + wTimes("Lampiran :  Satu Berkas", "left", "", "24") + `
-    ` + wTimes("Perihal  :  Rekomendasi Izin Cuti", "left", "", "24") + `
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
     <w:p/>
     ` + wTimes("Yth. Bupati Morowali Utara", "left", "", "24") + `
     ` + wTimes("Cq Kepala Badan Kepegawaian dan", "left", "", "24") + `
@@ -986,22 +767,14 @@ func buildRekomendasiXML(req *models.LeaveRequest) string {
     ` + wTimesJustify(para2, "24") + `
     <w:p/>
     <w:p/>
-<<<<<<< HEAD
     ` + buildDocxSignatureXML(now) + `
-=======
-    ` + wTimes("                                                     Kolonodale, "+formatTanggalID(now), "left", "", "24") + `
-    ` + wTimes("                                                     Kepala Dinas", "left", "", "24") + `
-    <w:p/><w:p/><w:p/>
-    ` + wTimes("                                                     MOH. RIDWAN DM, S.Ag", "left", "BU", "24") + `
-    ` + wTimes("                                                     NIP: 19740111 199803 1 004", "left", "", "24") + `
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
   </w:body>
 </w:document>`
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // PDF HELPER FUNCTIONS
-// ─────────────────────────────────────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 func sectionHeader(pdf *gofpdf.Fpdf, pageW float64, num, title string) {
 	pdf.SetFont("Times", "B", 9)
@@ -1059,9 +832,9 @@ func drawSuratRow(pdf *gofpdf.Fpdf, labelW, colonW, valW float64, label, val str
 	pdf.CellFormat(valW, 6, val, "", 1, "L", false, 0, "")
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// DOCX XML HELPER FUNCTIONS — Times New Roman
-// ─────────────────────────────────────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// DOCX XML HELPER FUNCTIONS â€” Times New Roman
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 // wTimes creates a paragraph with Times New Roman font
 func wTimes(text, align, style, sz string) string {

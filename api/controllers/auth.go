@@ -2,10 +2,7 @@ package controllers
 
 import (
 	"net/http"
-<<<<<<< HEAD
 	"time"
-=======
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
@@ -30,7 +27,6 @@ type ResetPasswordInput struct {
 	NewPassword string `json:"new_password" binding:"required"`
 }
 
-<<<<<<< HEAD
 type CreatePegawaiInput struct {
 	NIP    string `json:"nip" binding:"required"`
 	Nama   string `json:"nama" binding:"required"`
@@ -48,19 +44,11 @@ func Login(c *gin.Context) {
 	var input LoginInput
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "NIP dan password wajib diisi"})
-=======
-// Login handles user authentication
-func Login(c *gin.Context) {
-	var input LoginInput
-	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 		return
 	}
 
 	db := config.GetDB()
 	var user models.User
-<<<<<<< HEAD
 	if err := db.Preload("Menus").Preload("RoleRel").Where("nip = ?", input.NIP).First(&user).Error; err != nil {
 		// Log failed login
 		db.Create(&models.RequestHistory{
@@ -71,15 +59,11 @@ func Login(c *gin.Context) {
 			ChangedBy:   input.NIP,
 			ChangedAt:   time.Now(),
 		})
-=======
-	if err := db.Where("nip = ?", input.NIP).First(&user).Error; err != nil {
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "NIP atau Password salah"})
 		return
 	}
 
 	if user.Status != "aktif" {
-<<<<<<< HEAD
 		db.Create(&models.RequestHistory{
 			RequestType: "login",
 			RequestID:   user.ID,
@@ -88,15 +72,12 @@ func Login(c *gin.Context) {
 			ChangedBy:   input.NIP,
 			ChangedAt:   time.Now(),
 		})
-=======
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 		c.JSON(http.StatusForbidden, gin.H{"error": "Akun tidak aktif"})
 		return
 	}
 
 	// Verify password
 	if err := bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(input.Password)); err != nil {
-<<<<<<< HEAD
 		db.Create(&models.RequestHistory{
 			RequestType: "login",
 			RequestID:   user.ID,
@@ -105,13 +86,10 @@ func Login(c *gin.Context) {
 			ChangedBy:   input.NIP,
 			ChangedAt:   time.Now(),
 		})
-=======
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "NIP atau Password salah"})
 		return
 	}
 
-<<<<<<< HEAD
 	// Get menu codes
 	var menuCodes []string
 	for _, m := range user.Menus {
@@ -120,16 +98,11 @@ func Login(c *gin.Context) {
 
 	// Generate JWT
 	token, refreshToken, err := middleware.GenerateToken(user.NIP, user.Role, menuCodes)
-=======
-	// Generate JWT
-	token, refreshToken, err := middleware.GenerateToken(user.NIP, user.Role)
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal membuat token"})
 		return
 	}
 
-<<<<<<< HEAD
 	// Log successful login
 	db.Create(&models.RequestHistory{
 		RequestType: "login",
@@ -158,25 +131,6 @@ func Login(c *gin.Context) {
 		"has_profile":         hasProfile,
 		"employee":            employee,
 		"menus":               user.Menus,
-=======
-	// Get Employee details if exists
-	var employee models.Employee
-	hasProfile := false
-	if user.Role == "employee" {
-		if err := db.Where("nip = ?", user.NIP).First(&employee).Error; err == nil {
-			hasProfile = true
-		}
-	}
-
-	c.JSON(http.StatusOK, gin.H{
-		"token":         token,
-		"refresh_token": refreshToken,
-		"role":          user.Role,
-		"nip":           user.NIP,
-		"no_hp":         user.NoHP,
-		"has_profile":   hasProfile,
-		"employee":      employee,
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 	})
 }
 
@@ -201,16 +155,11 @@ func RefreshToken(c *gin.Context) {
 
 	db := config.GetDB()
 	var user models.User
-<<<<<<< HEAD
 	if err := db.Preload("Menus").Preload("RoleRel").Where("nip = ?", nip).First(&user).Error; err != nil {
-=======
-	if err := db.Where("nip = ?", nip).First(&user).Error; err != nil {
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Pengguna tidak ditemukan"})
 		return
 	}
 
-<<<<<<< HEAD
 	if user.Status != "aktif" {
 		c.JSON(http.StatusForbidden, gin.H{"error": "Akun tidak aktif"})
 		return
@@ -222,9 +171,6 @@ func RefreshToken(c *gin.Context) {
 	}
 
 	token, newRefresh, err := middleware.GenerateToken(user.NIP, user.Role, menuCodes)
-=======
-	token, newRefresh, err := middleware.GenerateToken(user.NIP, user.Role)
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal memperbarui token"})
 		return
@@ -259,15 +205,12 @@ func ChangePassword(c *gin.Context) {
 		return
 	}
 
-<<<<<<< HEAD
 	// Validate new password must not be equal to NIP for security
 	if input.NewPassword == user.NIP {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Password baru tidak boleh sama dengan NIP"})
 		return
 	}
 
-=======
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 	// Hash new password
 	newHash, err := bcrypt.GenerateFromPassword([]byte(input.NewPassword), bcrypt.DefaultCost)
 	if err != nil {
@@ -276,7 +219,6 @@ func ChangePassword(c *gin.Context) {
 	}
 
 	user.PasswordHash = string(newHash)
-<<<<<<< HEAD
 	user.IsPasswordDefault = false
 	db.Save(&user)
 
@@ -294,14 +236,6 @@ func ChangePassword(c *gin.Context) {
 }
 
 // ResetPassword allows admin to reset user's password to custom password (kept for backward compatibility)
-=======
-	db.Save(&user)
-
-	c.JSON(http.StatusOK, gin.H{"message": "Password berhasil diubah"})
-}
-
-// ResetPassword allows admin to reset any user's password
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 func ResetPassword(c *gin.Context) {
 	var input ResetPasswordInput
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -323,7 +257,6 @@ func ResetPassword(c *gin.Context) {
 	}
 
 	user.PasswordHash = string(newHash)
-<<<<<<< HEAD
 	user.IsPasswordDefault = false
 	db.Save(&user)
 
@@ -581,9 +514,3 @@ func AdminGetMenu(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, menus)
 }
-=======
-	db.Save(&user)
-
-	c.JSON(http.StatusOK, gin.H{"message": "Password untuk NIP " + input.NIP + " berhasil direset"})
-}
->>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
