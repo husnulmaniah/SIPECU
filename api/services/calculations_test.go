@@ -1,7 +1,10 @@
 package services
 
 import (
+<<<<<<< HEAD
 	"os"
+=======
+>>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 	"testing"
 	"time"
 
@@ -119,6 +122,7 @@ func TestRecalculateEmployeeDates(t *testing.T) {
 		t.Errorf("Expected status to transition to Pensiun, got %s", emp.StatusKepegawaian)
 	}
 }
+<<<<<<< HEAD
 
 func TestGenerateDocx(t *testing.T) {
 	req := &models.LeaveRequest{
@@ -139,3 +143,5 @@ func TestGenerateDocx(t *testing.T) {
 		t.Fatalf("WriteFile failed: %v", err)
 	}
 }
+=======
+>>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4

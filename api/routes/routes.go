@@ -38,12 +38,18 @@ func SetupRouter() *gin.Engine {
 	api := r.Group("/api")
 	{
 		// 1. Anonymous routes
+<<<<<<< HEAD
 		api.POST("/login", middleware.RateLimiter(), controllers.Login)
 		api.POST("/refresh-token", controllers.RefreshToken)
 
 		auth := api.Group("/auth")
 		{
 			auth.POST("/login", middleware.RateLimiter(), controllers.Login)
+=======
+		auth := api.Group("/auth")
+		{
+			auth.POST("/login", controllers.Login)
+>>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 			auth.POST("/refresh", controllers.RefreshToken)
 		}
 
@@ -53,8 +59,11 @@ func SetupRouter() *gin.Engine {
 		{
 			authorized.GET("/dashboard/summary", controllers.GetDashboardSummary)
 			authorized.PUT("/auth/change-password", controllers.ChangePassword)
+<<<<<<< HEAD
 			authorized.POST("/change-password", controllers.ChangePassword)
 			authorized.GET("/me", controllers.GetMe)
+=======
+>>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 
 			// Employees
 			authorized.GET("/employees", controllers.GetEmployees)
@@ -85,11 +94,14 @@ func SetupRouter() *gin.Engine {
 		admin.Use(middleware.RoleMiddleware("admin"))
 		{
 			admin.POST("/auth/reset-password", controllers.ResetPassword)
+<<<<<<< HEAD
 			admin.GET("/admin/pegawai", controllers.AdminGetPegawai)
 			admin.POST("/admin/pegawai", controllers.AdminCreatePegawai)
 			admin.PUT("/admin/pegawai/:nip/akses", controllers.AdminUpdateAkses)
 			admin.PUT("/admin/pegawai/:nip/reset-password", controllers.AdminResetPassword)
 			admin.GET("/admin/menu", controllers.AdminGetMenu)
+=======
+>>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 
 			// Retired Employees
 			admin.GET("/employees/retired", controllers.GetRetiredEmployees)

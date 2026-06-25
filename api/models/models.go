@@ -6,6 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
+<<<<<<< HEAD
 // Role represents user roles
 type Role struct {
 	ID       uint   `gorm:"primaryKey" json:"id"`
@@ -36,6 +37,19 @@ type User struct {
 	CreatedAt         time.Time      `json:"created_at"`
 	UpdatedAt         time.Time      `json:"updated_at"`
 	DeletedAt         gorm.DeletedAt `gorm:"index" json:"-"`
+=======
+// User represents credentials and roles
+type User struct {
+	ID           uint           `gorm:"primaryKey" json:"id"`
+	NIP          string         `gorm:"column:nip;type:varchar(50);uniqueIndex;not null" json:"nip"`
+	PasswordHash string         `gorm:"type:varchar(255);not null" json:"-"`
+	Role         string         `gorm:"type:varchar(20);not null" json:"role"` // "admin" or "employee"
+	NoHP         string         `gorm:"type:varchar(20)" json:"no_hp"`
+	Status       string         `gorm:"type:varchar(20);default:'aktif'" json:"status"` // "aktif" or "nonaktif"
+	CreatedAt    time.Time      `json:"created_at"`
+	UpdatedAt    time.Time      `json:"updated_at"`
+	DeletedAt    gorm.DeletedAt `gorm:"index" json:"-"`
+>>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 }
 
 // Employee represents the employee profile

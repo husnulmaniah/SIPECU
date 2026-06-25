@@ -73,6 +73,7 @@
               </div>
             </div>
           </div>
+<<<<<<< HEAD
 
           <!-- Letters/Signed Docs Section (Rekomendasi ACC button moved here) -->
           <div v-if="activeRequest.letters && activeRequest.letters.length > 0" class="border-t border-slate-850 pt-2">
@@ -93,6 +94,12 @@
 
         <!-- Action form (only show if admin and status is Diajukan) -->
         <form v-if="authStore.role === 'admin' && activeRequest.status === 'Diajukan'" @submit.prevent="submitReview" class="space-y-4 pt-2">
+=======
+        </div>
+
+        <!-- Action form -->
+        <form @submit.prevent="submitReview" class="space-y-4 pt-2">
+>>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
           <div>
             <label class="block text-xs font-semibold text-slate-350 mb-1.5 uppercase">Keputusan Tinjauan*</label>
             <select v-model="reviewForm.status" required
@@ -119,6 +126,7 @@
             </button>
           </div>
         </form>
+<<<<<<< HEAD
 
         <!-- Read-only Decision Info (show if status is NOT Diajukan, or if employee) -->
         <div v-else class="space-y-3 pt-2">
@@ -166,6 +174,8 @@
         <div class="flex-1 min-h-[60vh] bg-slate-950/40 rounded-xl overflow-hidden border border-slate-800">
           <iframe :src="docxPreviewUrl" class="w-full h-full min-h-[60vh]" />
         </div>
+=======
+>>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
       </div>
     </div>
 
@@ -381,7 +391,11 @@ import { useAuthStore } from '@/stores/auth'
 import api from '@/services/api'
 import DataTable from '@/components/DataTable.vue'
 import DatePicker from '@/components/DatePicker.vue'
+<<<<<<< HEAD
 import { CalendarDays, X, Loader2, ChevronDown, Download } from 'lucide-vue-next'
+=======
+import { CalendarDays, X, Loader2, ChevronDown } from 'lucide-vue-next'
+>>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 import Swal from 'sweetalert2'
 
 const authStore = useAuthStore()
@@ -393,6 +407,7 @@ const showAdminLeaveModal = ref(false)
 const modalSubmitting = ref(false)
 
 const activeRequest = ref({})
+<<<<<<< HEAD
 const activeEmployee = ref(null)
 
 const showDocxPreviewModal = ref(false)
@@ -409,6 +424,8 @@ const openDocxPreview = (url) => {
   showDocxPreviewModal.value = true
 }
 
+=======
+>>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 const reviewForm = ref({ status: 'Disetujui', catatan_admin: '' })
 const accFile = ref(null)
 
@@ -610,6 +627,7 @@ const tableColumns = computed(() => {
     render: (data, type, row) => {
       let buttons = ''
 
+<<<<<<< HEAD
       const rowJson = JSON.stringify(row).replace(/"/g, '&quot;')
 
       // 1. Review / Detail Action (Available to both Admin and Employee)
@@ -634,19 +652,52 @@ const tableColumns = computed(() => {
       if (row.letters && row.letters.length > 0) {
         row.letters.forEach(letter => {
           const label = letter.jenis_surat === 'Formulir' ? 'Formulir' : 'Rekomendasi'
+=======
+      // 1. Admin Actions
+      if (authStore.role === 'admin') {
+        if (row.status === 'Diajukan') {
+          const rowJson = JSON.stringify(row).replace(/"/g, '&quot;')
+          buttons += `<button data-id="${row.id}" data-row="${rowJson}" class="btn-review px-2.5 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-[10px] font-semibold transition-colors mr-1">Tinjau</button>`
+        }
+        if (row.status === 'Disetujui') {
+          const rowJson = JSON.stringify(row).replace(/"/g, '&quot;')
+          buttons += `<button data-id="${row.id}" data-row="${rowJson}" class="btn-upload px-2.5 py-1 bg-violet-600 hover:bg-violet-700 text-white rounded text-[10px] font-semibold transition-colors mr-1">Upload ACC</button>`
+        }
+        if (['Disetujui', 'Surat Terunggah', 'Selesai'].includes(row.status)) {
+          buttons += `<button data-id="${row.id}" class="btn-regenerate px-2.5 py-1 bg-amber-600 hover:bg-amber-500 text-white rounded text-[10px] font-semibold transition-colors mr-1">🔄 Regenerasi</button>`
+        }
+      }
+
+      // 2. Document Downloads (Available to both Admin and Employee based on status)
+      if (row.letters && row.letters.length > 0) {
+        row.letters.forEach(letter => {
+          const label = letter.jenis_surat === 'Formulir' ? 'Formulir' : 'Rekomendasi'
+          const colorPdf = letter.jenis_surat === 'Formulir' ? 'bg-sky-700 hover:bg-sky-600' : 'bg-indigo-800 hover:bg-indigo-700'
+>>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
 
           // Formulir: hanya PDF (tidak ada Word)
           // Rekomendasi: Word + PDF
           if (letter.jenis_surat === 'Rekomendasi' && letter.file_docx) {
+<<<<<<< HEAD
             dropdownItems += `<button data-url="${letter.file_docx}" class="btn-preview-docx w-full text-left px-3 py-1.5 hover:bg-slate-750 text-slate-200 text-[10px] font-medium block cursor-pointer transition-colors border-b border-slate-700/50 last:border-b-0">📄 Rekomendasi Word</button>`
           }
           if (letter.file_pdf) {
             const icon = letter.jenis_surat === 'Formulir' ? '📋' : '📕'
             dropdownItems += `<a href="${letter.file_pdf}" target="_blank" class="w-full text-left px-3 py-1.5 hover:bg-slate-750 text-slate-200 text-[10px] font-medium block transition-colors border-b border-slate-700/50 last:border-b-0">${icon} ${label} PDF</a>`
+=======
+            buttons += `<a href="${letter.file_docx}" target="_blank" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded border border-slate-700 text-[10px] font-medium mr-1 inline-block">Rekomendasi Word</a>`
+          }
+          if (letter.file_pdf) {
+            buttons += `<a href="${letter.file_pdf}" target="_blank" class="px-2 py-1 ${colorPdf} text-slate-200 rounded border border-slate-700 text-[10px] font-medium mr-1 inline-block">${label} PDF</a>`
+          }
+          if (letter.jenis_surat === 'Rekomendasi' && letter.file_signed_pdf) {
+            buttons += `<a href="${letter.file_signed_pdf}" target="_blank" class="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-[10px] font-bold mr-1 inline-block shadow-md">Rekomendasi ACC</a>`
+>>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
           }
         })
       }
 
+<<<<<<< HEAD
       if (dropdownItems !== '') {
         buttons += `
         <div class="relative inline-block text-left group mr-1 align-middle">
@@ -660,6 +711,8 @@ const tableColumns = computed(() => {
         `
       }
 
+=======
+>>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
       if (row.status === 'Dikembalikan' && row.catatan_admin) {
         buttons += `<span class="text-[10px] text-amber-500 font-semibold italic">Catatan: ${row.catatan_admin}</span>`
       }
@@ -681,6 +734,7 @@ const tableColumns = computed(() => {
 // Handle action button delegation clicks
 const handleTableClick = (e) => {
   const target = e.target
+<<<<<<< HEAD
 
   if (target.classList.contains('btn-preview-docx')) {
     const url = target.getAttribute('data-url')
@@ -688,6 +742,8 @@ const handleTableClick = (e) => {
     return
   }
 
+=======
+>>>>>>> 603353f54c6625439da1b7cf09eb935c784c51b4
   const idStr = target.getAttribute('data-id')
   if (!idStr) return
 
